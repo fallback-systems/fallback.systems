@@ -5,9 +5,15 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
    vite: {
     plugins: [tailwindcss()],
+      server: {
+      allowedHosts: ['fallback.systems', '.fallback.systems'],
+    }
   },
-  // add yur domain name here
-  site: 'https://yourdomain.com',
+  site: "https://fallback.systems",
+  server: {
+    host: '127.0.0.1',
+    port: 4321
+  },
   compressHTML: true,
   integrations: [sitemap()]
 });
