@@ -1,0 +1,72 @@
+---
+const testimonials = [
+  {
+    name: "",
+    role: "",
+    opinion:
+      "Our first idea is a hardware pendant in a shielded case"
+  },
+  {
+    name: "...",
+    role: "Envisioned Use Case",
+    opinion:
+      "It is a computer containing radio, wifi and data in an emergency",
+  },
+  {
+    name: "...",
+    role: "...",
+    opinion:
+      "It works with multiple communication protocols and can work offline with p2p interactions",
+  },
+  {
+    name: "",
+    role: "P",
+    opinion:
+      "It will have a knowledge bank of essential human knowledge and can be used as a computer",
+  },
+  {
+    name: "",
+    role: "",
+    opinion:
+      "Build one yourself or buy one.",
+  },
+  {
+    name: "",
+    role: "",
+    opinion:
+      "This is an open idea so feel free to contribute and help. It isnt nice but if we establish fallback systems we can still communicate if an unexpected event occurs.",
+  },
+];
+// Function to calculate `data-aos-duration` based on index
+function calculateAosDuration(index) {
+  return 1500 + index * 500; // Example: Increment duration by 500ms for each project
+}
+---
+
+<section class="bg-primary">
+  <div class="px-8 2xl:max-w-7xl mx-auto py-6">
+    <div class="mt-6 space-y-2">
+      <div class="h-0.5 bg-secondary"></div>
+      <h3 class="text-secondary text-base font-medium">
+        <span>human</span>
+        <span class="font-bold">opinions</span>
+      </h3>
+
+    </div>
+    <div class="flex flex-col text-secondary pt-2 mt-2 gap-12 lg:gap-32">
+      {
+        testimonials.map((opinion, index) => (
+         <div    data-aos="fade-up"
+         data-aos-duration={calculateAosDuration(index)} class="grid grid-cols-1 lg:items-end lg:grid-cols-4 py-4 gap-4">
+            <p class="text-3xl leading-6 lg:col-span-3 lg:text-5xl lg:leading-9 indent-32 lg:indent-32">
+              {opinion.opinion}
+            </p>
+            <p class="italic text-xs block ">
+              {opinion.name} {opinion.role}
+            </p>
+         </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

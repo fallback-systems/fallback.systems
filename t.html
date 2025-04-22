@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG Text Generator</title>
+  <!-- Import the font you want to use -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-top: 20px;
+    }
+    #preview {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>SVG Text Generator</h1>
+  
+  <div>
+    <label for="text">Enter your text:</label>
+    <input type="text" id="text" value="Your Name" style="width: 100%; padding: 5px;">
+  </div>
+  
+  <div style="margin-top: 10px;">
+    <label for="font">Select font:</label>
+    <select id="font">
+      <option value="Arial, sans-serif">Arial</option>
+      <option value="'Roboto', sans-serif">Roboto</option>
+      <option value="'Times New Roman', serif">Times New Roman</option>
+      <option value="'Courier New', monospace">Courier New</option>
+    </select>
+    
+    <label for="weight" style="margin-left: 10px;">Font weight:</label>
+    <select id="weight">
+      <option value="normal">Normal</option>
+      <option value="bold" selected>Bold</option>
+    </select>
+  </div>
+  
+  <button id="generate" style="margin-top: 10px;">Generate SVG</button>
+  
+  <div id="preview"></div>
+  
+  <textarea id="result" placeholder="SVG code will appear here"></textarea>
+  
+  <script>
+    document.getElementById('generate').addEventListener('click', function() {
+      const text = document.getElementById('text').value;
+      const font = document.getElementById('font').value;
+      const weight = document.getElementById('weight').value;
+      
+      // Create a temporary SVG element
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '2126');
+      svg.setAttribute('height', '374');
+      svg.setAttribute('viewBox', '0 0 2126 374');
+      
+      // Create a text element
+      const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textElement.setAttribute('x', '50');
+      textElement.setAttribute('y', '200');
+      textElement.setAttribute('font-family', font);
+      textElement.setAttribute('font-size', '150');
+      textElement.setAttribute('font-weight', weight);
+      textElement.setAttribute('fill', 'currentColor');
+      textElement.textContent = text;
+      
+      svg.appendChild(textElement);
+      
+      // Add to preview
+      const preview = document.getElementById('preview');
+      preview.innerHTML = '';
+      preview.appendChild(svg);
+      
+      // Convert text to path
+      const svgString = new XMLSerializer().serializeToString(svg);
+      
+      // Create a temporary container
+      const container = document.createElement('div');
+      container.innerHTML = svgString;
+      
+      // Get the SVG element
+      const svgElement = container.querySelector('svg');
+      
+      // Get the text element
+      const textEl = svgElement.querySelector('text');
+      
+      // Get the bounding box of the text
+      const bbox = textEl.getBBox();
+      
+      // Create a new SVG with just the path
+      const resultSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      resultSvg.setAttribute('viewBox', '0 0 2126 374');
+      resultSvg.setAttribute('fill', 'none');
+      resultSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      
+      // Create a path element (this is a placeholder - browser can't convert text to path directly)
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('fill', 'currentColor');
+      
+      // Note: This doesn't actually convert text to path
+      // For that, you'd need to use a server-side tool or a more complex library
+      
+      // For now, we'll just keep the text element
+      resultSvg.appendChild(textEl);
+      
+      // Get the final SVG string
+      const finalSvgString = new XMLSerializer().serializeToString(resultSvg)
+        .replace(/(width|height)="[^"]*"/g, ''); // Remove width and height
+      
+      // Display the result
+      document.getElementById('result').value = finalSvgString;
+    });
+  </script>
+</body>
+</html>
