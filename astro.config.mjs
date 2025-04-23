@@ -14,6 +14,9 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 4321
   },
+  devToolbar: {
+    enabled: false
+  },
   compressHTML: true,
   integrations: [sitemap()]
 });
